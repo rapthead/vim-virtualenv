@@ -18,9 +18,9 @@ function! virtualenv#activate(...)
             let env_dir = $VIRTUAL_ENV
         elseif isdirectory($PROJECT_HOME)
             let fn = expand('%:p')
-            let pat = '^'.$PROJECT_HOME.'/'
+            let pat = '^'.$PROJECT_HOME.'/\?\([^/]*\)/.*'
             if fn =~ pat
-                let name = fnamemodify(substitute(fn, pat, '', ''), ':h')
+                let name = substitute(fn, pat, '\1', '')
                 if name != '.'  "No project directory
                     let env_dir = g:virtualenv_directory.'/'.name
                 endif
